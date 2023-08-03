@@ -1,19 +1,36 @@
-import { getAllCountriesAndCapitals } from "./ApiCountries";
+import { getAllCapitals, getAllCountriesAndCapitals } from "./ApiCountries";
 
-export function getRandomInt() {
-    return Math.floor(Math.random() * 250);
+// Función para barajar un array
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
 }
 
 export async function generateFiveQuizes() {
     let allCountries = await getAllCountriesAndCapitals();
-    let countriesGenerated = [];
-    for (let index = 0; index < 5; index++) {
-        let random = getRandomInt();
-        let country = allCountries[random];
-        if (countriesGenerated.includes(country)) {
-            index--;
-        }else{
-            countriesGenerated.push(country);
+    let allCapitals = await getAllCapitals();
+
+    let shuffledCountries = shuffle(allCountries);
+    let countriesGenerated = shuffledCountries.slice(0, 5);
+
+    for (let country of countriesGenerated) {
+        country.falseCapitals = [];
+        
+        let shuffledCapitals = shuffle(allCapitals);
+
+        for (let capital of shuffledCapitals) {
+            if (country.falseCapitals.length >= 3) break;
+            if (capital !== country.capital) {
+                country.falseCapitals.push(capital);
+            }
         }
     }
 

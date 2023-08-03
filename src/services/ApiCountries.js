@@ -10,3 +10,9 @@ export const getAllCountriesAndCapitals = async () => {
     return data;
 }
 
+export const getAllCapitals = async () => {
+    const response = await fetch(`https://restcountries.com/v3.1/all?fields=capital`);
+    const data = await response.json();
+    return data;
+}
+
