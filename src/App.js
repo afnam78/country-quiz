@@ -11,7 +11,7 @@ function App() {
   }
 
   return (
-    <div className="App bg-custom bg-cover flex justify-center items-center h-screen">
+    <div className="App bg-custom bg-cover flex justify-center items-center h-screen px-5">
       <Main allCorrect={(data => allCorrect(data))} />
       {
         approved &&
