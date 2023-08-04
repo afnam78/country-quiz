@@ -1,6 +1,9 @@
 export const getCountryAndCapital = async (country) => {
-    const response = await fetch(`https://restcountries.eu/rest/v2/name/${country}`);
-    const data = await response.json();
+    let data = null;
+    while(data.capital[0] === undefined || data.capital[0] === null){
+        const response = await fetch(`https://restcountries.eu/rest/v2/name/${country}`);
+        data = await response.json();
+    }
     return data;
 }
 

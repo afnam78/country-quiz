@@ -7,7 +7,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         'custom': "url('assets/background.png')",
-      }
+      },
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+      },
     },
   },
   plugins: [],

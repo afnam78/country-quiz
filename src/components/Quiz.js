@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import { motion } from "framer-motion"
+
 
 export const Quiz = ({ data, nextQuiz }) => {
 
@@ -6,16 +8,18 @@ export const Quiz = ({ data, nextQuiz }) => {
   const [trueCapital, setTrueCapital] = useState(data.capital[0]);
 
   useEffect(() => {
+
     let capitals = [];
-    data.falseCapitals.forEach(capital => {
-      capitals.push(capital.capital[0]);
-    });
     capitals.push(data.capital[0]);
     setTrueCapital(data.capital[0]);
 
+    data.falseCapitals.forEach(capital => {
+      capitals.push(capital.capital[0]);
+    });
     setRandomPositions(shuffle(capitals));
 
   }, [data]);
+
 
   function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -42,7 +46,12 @@ export const Quiz = ({ data, nextQuiz }) => {
     <div className='grid gap-2'>
       {randomPositions.map((position, index) => (
         <div key={index}>
-          <button className='bg-white border-2 border-[#6066D0B2] rounded-md text-[#6066D0B2] w-full py-5 hover:bg-yellow-400 hover:text-white transition-all hover:border-transparent font-semibold flex gap-10 justify-start items-center px-5' onClick={() => checkSelected(position)}>
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className='bg-white border-2 border-[#6066D0B2] rounded-md text-[#6066D0B2] w-full py-5 md:hover:bg-yellow-400 md:hover:text-white transition-all md:hover:border-transparent font-semibold flex gap-10 justify-start items-center px-5'
+            onClick={() => checkSelected(position)}
+          >
             <span className='font-bold'>
               {index === 0 ? 'A' :
                 index === 1 ? 'B' :
@@ -50,7 +59,8 @@ export const Quiz = ({ data, nextQuiz }) => {
                     index === 3 ? 'D' : ''}
             </span>
             <span className=''>{position}</span>
-          </button>
+          </motion.button>
+
         </div>
       ))}
     </div>

@@ -15,24 +15,24 @@ function shuffle(array) {
 }
 
 export async function generateFiveQuizes() {
-    let allCountries = await getAllCountriesAndCapitals();
-    let allCapitals = await getAllCapitals();
+  let allCountries = await getAllCountriesAndCapitals();
+  let allCapitals = await getAllCapitals();
 
-    let shuffledCountries = shuffle(allCountries);
-    let countriesGenerated = shuffledCountries.slice(0, 5);
+  let shuffledCountries = shuffle(allCountries);
+  let countriesGenerated = shuffledCountries.slice(0, 5);
 
-    for (let country of countriesGenerated) {
-        country.falseCapitals = [];
-        
-        let shuffledCapitals = shuffle(allCapitals);
+  for (let country of countriesGenerated) {
+    country.falseCapitals = [];
 
-        for (let capital of shuffledCapitals) {
-            if (country.falseCapitals.length >= 3) break;
-            if (capital !== country.capital) {
-                country.falseCapitals.push(capital);
-            }
-        }
+    let shuffledCapitals = shuffle(allCapitals);
+
+    for (let capital of shuffledCapitals) {
+      if (country.falseCapitals.length >= 3) break;
+      if (capital !== country.capital && (capital !== null || capital !== undefined)) {
+        country.falseCapitals.push(capital);
+      }
     }
+  }
 
-    return countriesGenerated;
+  return countriesGenerated;
 }

@@ -16,7 +16,6 @@ export const Main = ({ allCorrect }) => {
         generateFiveQuizes().then((data) => {
             setQuizes(data);
             setLoaded(true);
-            console.log(data);
         });
     }, []);
 
@@ -52,7 +51,9 @@ export const Main = ({ allCorrect }) => {
         <>
             {
                 loaded ?
-                    <div className='max-w-lg w-full border rounded-lg shadow-md p-10 bg-white'>
+                    <div className='max-w-lg w-full font-poppins'>
+                        <h1 className='font-bold text-4xl mb-3 text-white'>Capital Quiz</h1>
+                        <div className=' border rounded-lg shadow-md p-10 bg-white'>
                         {!finished ?
                             (
                                 <div>
@@ -75,7 +76,8 @@ export const Main = ({ allCorrect }) => {
                                     </div>
                                 </div>
                             )}
-                    </div>
+                    </div></div>
+
                     : <>
                     </>
             }
